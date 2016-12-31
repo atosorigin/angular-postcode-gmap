@@ -1,0 +1,8 @@
+<div class="angular-google-map-container">
+    <ui-gmap-google-map center="vm.map.center" zoom="vm.map.zoom">
+        <ui-gmap-window show="vm.infoWindow.show" coords="vm.infoWindowModel.coords" closeClick="vm.infoWindow.closeClick()"
+                        templateUrl="vm.infoWindow.template" templateParameter="vm.infoWindowModel" data-ng-cloak>
+        </ui-gmap-window>
+        <ui-gmap-markers models="vm.geocodes" coords="'coords'" fit="true" click="vm.markerClick"></ui-gmap-markers>
+    </ui-gmap-google-map>
+</div>

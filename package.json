@@ -1,0 +1,32 @@
+{
+  "name": "angular-postcode-gmap",
+  "version": "1.0.0",
+  "description": "AngularJS directive for creating a postcode-plotting map, based on the angular-google-maps library",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atosorigin/angular-postcode-gmap.git"
+  },
+  "keywords": [
+    "angularjs",
+    "googlemaps",
+    "directives",
+    "webcomponent",
+    "postcode"
+  ],
+  "files": [
+    "src"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Daniel Lam",
+    "email": "daniel.2.lam@atos.net"
+  },
+  "dependencies": {
+    "angular": "1.2 - 1.5",
+    "angular-simple-logger": ">=0.0.1",
+    "lodash": "3.X - 4.X",
+    "angular-google-maps": "^2.3.2",
+    "jquery": "^2.1.4",
+    "less": "^2.5.1"
+  }
+}
