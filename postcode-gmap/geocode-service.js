@@ -38,16 +38,20 @@ angular.module('postcodeMap.services', []).constant('SCRIPT_URL',
                     // further discussion.
                     return $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + postcode
                         + '&key=' + apiKey).then(function (response) {
-                        var lat = response.results[0].geometry.location.lat;
-                        var lng = response.results[0].geometry.location.lng;
+                        if (response.status == "OK") {
+                            var lat = response.results[0].geometry.location.lat;
+                            var lng = response.results[0].geometry.location.lng;
 
-                        return {
-                            coords: {
-                                latitude: lat,
-                                longitude: lng
-                            },
-                            address: response.results[0].formatted_address
-                        };
+                            return {
+                                coords: {
+                                    latitude: lat,
+                                    longitude: lng
+                                },
+                                address: response.results[0].formatted_address
+                            };
+                        } else {
+                            $log.info("No results returned for postcode " + postcode.replace(/\+/g, ' '));
+                        }
                     }, function (error) {
                         $log.error("Error geocoding postcode " + postcode.replace(/\+/g, ' ') + ": " + error);
                     });
@@ -63,6 +67,9 @@ angular.module('postcodeMap.services', []).constant('SCRIPT_URL',
                     // Get the geocode data for the postcode and return marker object data.
                     return getGeocodeData(postcode.replace(/ /g, '+'));
                 })).then(function (geocodes) {
+                    // Filter out any undefined geocodes (i.e. where no results were returned for a postcode).
+                    geocodes = geocodes.filter(Boolean);
+
                     // Use the current iteration count as the marker ID.
                     for (var i = 0; i < geocodes.length; i++) {
                         geocodes[i].id = i;
