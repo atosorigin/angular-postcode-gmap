@@ -41,17 +41,18 @@ angular.module('postcodeMap', ['uiGmapgoogle-maps', 'postcodeMap.services']).con
                 // is to round to an integer. See https://github.com/angular-ui/angular-google-maps/issues/1170 and the
                 // comment by "antoine64", where this issue was identified.
                 vm.map = { center: { latitude: GMAP_DEFAULTS.ukCenterLat, longitude: Math.round(GMAP_DEFAULTS.ukCenterLong) },
-                    zoom: GMAP_DEFAULTS.zoom };
-            })();
+                    zoom: GMAP_DEFAULTS.zoom, options: { maxZoom: 18 } };
 
-            // Call the Geocode service to obtain geocode data for the postcodes (if any).
-            if (vm.postcodes) {
                 // This variable is bound to the "models" attribute of the "ui-gmap-markers" directive and must be
                 // initialized, or else it results in multiple "TypeError: Cannot read property 'gManager' of undefined"
                 // errors every time the map is dragged. See
                 // http://stackoverflow.com/questions/30083348/typeerror-cannot-read-property-gmanager-of-undefined, in
                 // particular, the last comment.
                 vm.geocodes = [];
+            })();
+
+            // Call the Geocode service to obtain geocode data for the postcodes (if any).
+            if (vm.postcodes) {
                 Geocode.geocode(vm.postcodes).then(function (data) {
                     vm.geocodes = data;
 
